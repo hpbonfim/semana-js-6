@@ -1,5 +1,8 @@
-function message(): void {
-  console.log('Hello World')
-}
+import config from "./config.js"
+import server from "./server.js"
+import { logger } from "./util.js"
 
-message()
+server.listen(config.port)
+  .on('listening', () => {
+    logger.info(`server running!! PORT(${config.port})`)
+  })
