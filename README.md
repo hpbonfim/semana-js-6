@@ -49,7 +49,6 @@ Seja bem vindo(a) à sexta Semana Javascript Expert. Este é o código inicial p
 - [Boo](https://youtu.be/rYAQN11a2Dc)
 - [Fart](https://youtu.be/4PnUfYhbDDM)
 - [Laugh](https://youtu.be/TZ90IUrMNCo)
-- []()
 
 ## FAQ 
 - Rodei `npm test` mas nada acontece, o que fazer?
