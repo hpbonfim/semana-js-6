@@ -4,8 +4,8 @@
     "name": "Debug index.ts",
     "type": "node",
     "request": "launch",
-    "cwd": "${workspaceRoot}",
-    "runtimeArgs": ["-r", "ts-node/register"],
-    "args": ["${workspaceRoot}/src/index.ts"]
+    "preLaunchTask": "tsc: build - tsconfig.json",
+    "program": "${workspaceFolder}/src/index.ts",
+    "outFiles": ["${workspaceFolder}/build/**/*.js"]
   }]
 }
