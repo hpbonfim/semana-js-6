@@ -15,38 +15,38 @@ async function routes(request: IncomingMessage, response: ServerResponse) {
   const { method, url } = request
 
   if (method === 'GET' && url === '/') {
+
     response.writeHead(302, {
       'Location': location.home
     })
 
     return response.end()
+
   }
 
   if (method === 'GET' && url === '/home') {
-
     const { stream } = await controller.getFileStream(homeHTML)
 
-    // padrão do response: text/html
+    response.writeHead(200, {
+      'Content-Type': 'text/html'
+    })
+
     return stream.pipe(response)
-    // alternativa
-    // response.writeHead(200, {
-    //   'Content-Type': 'text/html'
-    // })
 
   }
 
   if (method === 'GET' && url === '/controller') {
-
     const { stream } = await controller.getFileStream(controllerHTML)
 
-    // padrão do response: text/html
+    response.writeHead(200, {
+      'Content-Type': 'text/html'
+    })
+
     return stream.pipe(response)
-    // alternativa
-    // response.writeHead(200, {
-    //   'Content-Type': 'text/html'
-    // })
+
   }
 
+  // carrega os arquivos (css, js, html)
   if (method === 'GET') {
     const { stream, type } = await controller.getFileStream(url)
 
@@ -57,6 +57,9 @@ async function routes(request: IncomingMessage, response: ServerResponse) {
 
     return stream.pipe(response)
   }
+
+  response.writeHead(404)
+  return response.end()
 }
 
 function handleError(error: any, response: ServerResponse) {
@@ -77,34 +80,3 @@ export function handler(request: IncomingMessage, response: ServerResponse) {
     .catch((error: any) => handleError(error, response))
 
 }
-
-// if (method === 'GET')
-// switch (url) {
-//   case '/':
-//     response.writeHead(302, {
-//       'Location': location.home
-//     })
-
-//     return response.end()
-
-//   case '/home':
-//     const { stream } = await controller.getFileStream(homeHTML)
-//     // padrão do response: text/html
-//     // alternativa
-//     // response.writeHead(200, {
-//     //   'Content-Type': 'text/html'
-//     // })
-//     return stream.pipe(response)
-
-//   case '/controller':
-//     // padrão do response: text/html
-//     // alternativa
-//     // response.writeHead(200, {
-//     //   'Content-Type': 'text/html'
-//     // })
-//     return await (await controller.getFileStream(controllerHTML)).stream.pipe(response)
-
-//   default:
-//     response.writeHead(404)
-//     return response.end()
-// }

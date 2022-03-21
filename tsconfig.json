@@ -1,16 +1,20 @@
 {
+  "ts-node": {
+    "moduleTypes": {
+      "jest.config.ts": "cjs"
+    }
+  },
   "compilerOptions": {
     "lib": ["ES2022"],
     "module": "NodeNext",
     "target": "ES2022",
     "outDir": "build",
-    "sourceMap": true,
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "useDefineForClassFields": true
   },
-  "include": ["src"],
+  "include": ["server"],
   "exclude": ["node_modules"]
 }

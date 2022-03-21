@@ -1,8 +1,5 @@
-import { dirname, join } from "path";
-import { fileURLToPath } from "url";
-
-const currentDir = dirname(fileURLToPath(import.meta.url))
-const root = join(currentDir, '../')
+import { dirname, join } from "path"
+import { fileURLToPath } from "url"
 
 type ConfigTypes = {
   port: string | number,
@@ -26,6 +23,9 @@ type ConfigTypes = {
     }
   }
 }
+
+const currentDir = dirname(fileURLToPath(import.meta.url))
+const root = join(currentDir, '../')
 
 export default {
   port: process.env.PORT || 3000,
