@@ -1,3 +1,4 @@
+import { once } from "events"
 import { IncomingMessage, ServerResponse } from "http"
 import config from "./config.js"
 import { Controller } from "./controller.js"
@@ -44,6 +45,26 @@ async function routes(request: IncomingMessage, response: ServerResponse) {
 
     return stream.pipe(response)
 
+  }
+
+  if (method === 'GET' && url?.includes('/stream')) {
+    const { stream, onClose } = controller.createClientStream()
+
+    request.once("close", onClose)
+    response.writeHead(200, {
+      'Content-Type': 'audio/mpeg',
+      'Accept-Rages': 'bytes'
+    })
+
+    return stream.pipe(response)
+  }
+
+  if (method === 'POST' && url === '/controller') {
+    const data: any = await once(request, 'data')
+    const item = JSON.parse(data)
+    const result = await controller.handleCommand(item)
+
+    return response.end(JSON.stringify(result))
   }
 
   // carrega os arquivos (css, js, html)
